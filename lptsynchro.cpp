@@ -29,13 +29,12 @@ unsigned long GetTimeStamp()
 	return timeGetTime();
 }
 
-struct lptsynchro *OpenLPTSynchro(unsigned int base_level,
-								  unsigned int duration) 
+struct lptsynchro *OpenLPTSynchro(unsigned int base_level, unsigned int duration) 
 {
 	int bResult = FALSE;
 	struct lptsynchro *synchro = NULL;
 
-    synchro = (struct lptsynchro*)malloc(sizeof(*synchro));
+	synchro = (struct lptsynchro*)malloc(sizeof(*synchro));
 	if (synchro == NULL)
 		return NULL;
     
@@ -48,7 +47,7 @@ struct lptsynchro *OpenLPTSynchro(unsigned int base_level,
 		SetPortVal(0x378, synchro->baseLevel, 1);
 		synchro->thread = CreateThread(NULL, 0, ResetSignalThread, synchro, 0, 0);
 	} else {
-        if (synchro->syncHandle[0])
+	        if (synchro->syncHandle[0])
 			CloseHandle(synchro->syncHandle[0]);
 		if (synchro->syncHandle[1])
 			CloseHandle(synchro->syncHandle[1]);
@@ -80,8 +79,9 @@ void CloseLPTSynchro(struct lptsynchro * synchro)
 	
 	free(synchro);
 }
-unsigned long SignalSynchro(struct lptsynchro *synchro,
-							unsigned int message)
+
+
+unsigned long SignalSynchro(struct lptsynchro *synchro,	unsigned int message)
 {
 	unsigned int pins;
 	if (!synchro)
@@ -92,8 +92,9 @@ unsigned long SignalSynchro(struct lptsynchro *synchro,
 	SetWaitableTimer(synchro->syncHandle[0], &synchro->dueTime, 0, NULL, NULL, FALSE);
 	return GetTimeStamp();
 }
-int SetSynchroDuration(struct lptsynchro *synchro,
-					   unsigned int duration)
+
+
+int SetSynchroDuration(struct lptsynchro *synchro, unsigned int duration)
 {
 	if (!synchro->syncHandle[0])
 		return 0;
@@ -102,6 +103,7 @@ int SetSynchroDuration(struct lptsynchro *synchro,
 	synchro->dueTime.QuadPart *= -1;
 	return 1;
 }
+
 
 /********************************************************************/
 DWORD WINAPI ResetSignalThread(LPVOID lpParameter)
@@ -114,8 +116,7 @@ DWORD WINAPI ResetSignalThread(LPVOID lpParameter)
 	syncHandles[1] = synchro->syncHandle[1];
 	BaseLevel = synchro->baseLevel;
 	
-	while (WaitForMultipleObjects(2, syncHandles, FALSE, INFINITE) ==
-	       WAIT_OBJECT_0)
+	while (WaitForMultipleObjects(2, syncHandles, FALSE, INFINITE) == WAIT_OBJECT_0)
 		   SetPortVal(0x378, BaseLevel, 1);
 	
 	SetPortVal(0x378, BaseLevel, 1);
