@@ -6,8 +6,8 @@ extern "C" {
 #endif
 
 struct lptsynchro;
-struct lptsynchro *OpenLPTSynchro(unsigned int base_level,
-				  unsigned int duration);
+
+struct lptsynchro *OpenLPTSynchro(unsigned int base_level, unsigned int duration);
 void CloseLPTSynchro(struct lptsynchro *synchro);
 int SetSynchroDuration(struct lptsynchro *synchro, unsigned int duration);
 unsigned long SignalSynchro(struct lptsynchro *synchro, unsigned int message);

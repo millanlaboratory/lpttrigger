@@ -15,11 +15,13 @@
 
 #pragma comment(lib, "Winmm.lib")
 
+
 struct lptsynchro {
 	HANDLE syncHandle[2];
 	HANDLE thread;
 	DWORD baseLevel;
 	LARGE_INTEGER dueTime;
+	WORD paddr;
 };
 
 DWORD WINAPI ResetSignalThread(LPVOID lpParameter);
@@ -40,11 +42,12 @@ struct lptsynchro *OpenLPTSynchro(unsigned int base_level, unsigned int duration
     
 	synchro->syncHandle[0] = CreateWaitableTimer(NULL, FALSE, NULL);
 	synchro->syncHandle[1] = CreateEvent(NULL, FALSE, FALSE, NULL);
+	synchro->paddr = 0x378;
 	synchro->baseLevel = base_level;
 	bResult = InitializeWinIo();
     
 	if (synchro->syncHandle[0] && synchro->syncHandle[1] && bResult) {
-		SetPortVal(0x378, synchro->baseLevel, 1);
+		SetPortVal(synchro->paddr, synchro->baseLevel, 1);
 		synchro->thread = CreateThread(NULL, 0, ResetSignalThread, synchro, 0, 0);
 	} else {
 	        if (synchro->syncHandle[0])
@@ -88,7 +91,7 @@ unsigned long SignalSynchro(struct lptsynchro *synchro,	unsigned int message)
 		return 0;
 	
 	pins = message;
-	SetPortVal(0x378, pins ^ (synchro->baseLevel), 1);
+	SetPortVal(synchro->paddr, pins ^ (synchro->baseLevel), 1);
 	SetWaitableTimer(synchro->syncHandle[0], &synchro->dueTime, 0, NULL, NULL, FALSE);
 	return GetTimeStamp();
 }
@@ -117,9 +120,9 @@ DWORD WINAPI ResetSignalThread(LPVOID lpParameter)
 	BaseLevel = synchro->baseLevel;
 	
 	while (WaitForMultipleObjects(2, syncHandles, FALSE, INFINITE) == WAIT_OBJECT_0)
-		   SetPortVal(0x378, BaseLevel, 1);
+		   SetPortVal(synchro->paddr, BaseLevel, 1);
 	
-	SetPortVal(0x378, BaseLevel, 1);
+	SetPortVal(synchro->paddr, BaseLevel, 1);
 	
 	return 0;
 }
