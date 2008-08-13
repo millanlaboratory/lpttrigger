@@ -4,6 +4,11 @@
 #include <errno.h>
 #include <stdlib.h>
 
+#ifdef WIN32
+#include <compat-win32.h>
+#endif
+
+
 #define STOP_THREAD	1
 #define RESTART_TIMER	2
 
@@ -31,6 +36,7 @@ void* ResettingTriggerFunc(void* arg)
 	struct lpttrigger* trigg = arg;
 	int retcode = 0;
 	int run_signal = 0;
+	volatile unsigned char* curr_level = &(trigg->current_level);
 	struct timespec timeout;
 	pthread_cond_t* cond = &(trigg->cond);
 	pthread_mutex_t* mutex = &(trigg->cond_mtx);
@@ -54,12 +60,12 @@ void* ResettingTriggerFunc(void* arg)
 
 		} else if (retcode == ETIMEDOUT) {
 			SetLPTData(trigg->port, trigg->base_level);
+			*curr_level = trigg->base_level;
 			run_signal = 0;
 		}
 	}
 	SetLPTData(trigg->port, trigg->base_level);
 	pthread_mutex_unlock(&(trigg->cond_mtx));
-
 	return NULL;
 }
 
@@ -79,14 +85,17 @@ struct lpttrigger *OpenLPTTrigger(unsigned char base_level, unsigned int duratio
 	trigg->port = port;
 	trigg->duration = duration;
 	trigg->base_level = base_level;
+	trigg->current_level = base_level;
 
 	// Create the resetting thread
+	trigg->cond_var = 0;
 	pthread_cond_init(&(trigg->cond), NULL);
 	pthread_mutex_init(&(trigg->cond_mtx), NULL);
 	if (pthread_create(&(trigg->thread), NULL, ResettingTriggerFunc, trigg) < 0)
 		goto error;
 	
 	SetLPTData(port, base_level);
+	
 	return trigg;
 
 error:
@@ -118,14 +127,13 @@ void CloseLPTTrigger(struct lpttrigger *trigg)
 
 void SignalTrigger(struct lpttrigger *trigg, unsigned int message)
 {
-	char level;
 	if (!trigg)
 		return;
 
 	// Send Stop signal to resetting thread	
 	pthread_mutex_lock(&(trigg->cond_mtx));
-	level = message | trigg->current_level;
-	SetLPTData(trigg->port, level);
+	trigg->current_level |= message ;
+	SetLPTData(trigg->port, trigg->current_level);
 	trigg->cond_var |= RESTART_TIMER;
 	pthread_cond_signal(&(trigg->cond));
 	pthread_mutex_unlock(&(trigg->cond_mtx));
