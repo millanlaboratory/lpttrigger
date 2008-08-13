@@ -25,14 +25,11 @@ struct lptport* OpenLPTPort(int portnum)
 	if (portnum<0)
 		portnum = 0;
 	snprintf(filename, 31, "/dev/parport%i", portnum);
-	fprintf(stderr, "try to open device %s\n", filename);
 	
 	// Open the device
 	fd = open(filename, O_RDONLY);
-	if (fd<0) {
-		fprintf(stderr,"cannot open device\n");
+	if (fd<0)
 		return NULL;
-	}
 
 	// Set the device parameters
 	/*if (ioctl(fd, PPEXCL)<0) {
@@ -50,7 +47,6 @@ struct lptport* OpenLPTPort(int portnum)
 	// Allocate the struct
 	port = malloc(sizeof(*port));
 	if (!port) {
-		fprintf(stderr,"cannot allocate memory\n");
 		close(fd);
 		return NULL;
 	}
