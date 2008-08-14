@@ -86,6 +86,8 @@ void* ResettingTriggerFunc(void* arg)
  * \return a pointer to a \c lpttrigger structure refering the port and options used
  * 
  * Open the port specified by \c portnum. \c portnum is a negative value, the port opened is the default port. The meaning of a non negtive value is platform dependent: On unix like OS (Linux and Mac OS X), it refers to the number of the device name (for example /dev/parport1 on linux). On windows, it refers to the address value.
+ * The \c base_level parameter is the "rest state" of the pins of the parallel port. It is useful particularly if the system you work with detect falling edge of signals.
+ *
  */
 struct lpttrigger *OpenLPTTrigger(unsigned char base_level, unsigned int duration, int portnum)
 {
@@ -121,7 +123,11 @@ error:
 	return NULL;
 }
 
-
+/*!
+ * \param trigg 	the \c lpttrigger struct you want to free
+ *  
+ * \c trigg can be NULL. In that case, the function do nothing.
+ */
 void CloseLPTTrigger(struct lpttrigger *trigg)
 {
 	if (!trigg)
@@ -141,7 +147,12 @@ void CloseLPTTrigger(struct lpttrigger *trigg)
 	free(trigg);
 }
 
-
+/*!
+ * \param trigg 	the \c lpttrigger structure previously created
+ * \param message	a bitmask representing the bits whose state should be changed
+ *
+ * Change the state of the bits specified by \c message for \e at \e least \c trigg->duration milliseconds. The function returns immediatly.
+ */
 void SignalTrigger(struct lpttrigger *trigg, unsigned int message)
 {
 	if (!trigg)
