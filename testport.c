@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <lpttrigger.h>
+#include "lpttrigger.h"
 
 #ifndef WIN32
 #include <unistd.h>

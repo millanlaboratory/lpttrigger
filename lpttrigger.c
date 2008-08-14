@@ -1,3 +1,12 @@
+/** \internal
+ * \file lpttrigger.c
+ * \author Nicolas Bourdaud
+ * \version 0.1
+ * \date 14/08/2008
+ *
+ * This is the implementation of the LPTtrigger
+ *
+ */
 #include "lpttrigger.h"
 #include "lptwriter.h"
 #include <pthread.h>
@@ -70,6 +79,14 @@ void* ResettingTriggerFunc(void* arg)
 }
 
 
+/*!
+ * \param base_level 	The rest level of all bits
+ * \param duration	The minimum duration of a pulse in milliseconds
+ * \param portnum	The value of desired port to be used. A negative value means that the default port should be used
+ * \return a pointer to a \c lpttrigger structure refering the port and options used
+ * 
+ * Open the port specified by \c portnum. \c portnum is a negative value, the port opened is the default port. The meaning of a non negtive value is platform dependent: On unix like OS (Linux and Mac OS X), it refers to the number of the device name (for example /dev/parport1 on linux). On windows, it refers to the address value.
+ */
 struct lpttrigger *OpenLPTTrigger(unsigned char base_level, unsigned int duration, int portnum)
 {
 	struct lpttrigger* trigg;
