@@ -52,21 +52,64 @@ unsigned int to_decbin(unsigned int integer)
 }
 
 
+char usage_str[] = 
+	"Usage: testport [options...]\n"
+	"Options:\n"
+	"\t--base-level=LEVEL    Change the rest level of the pins\n"
+	"\t                      specified in hexadecimal (0x00)\n"
+	"\t--delay=DELAY         Set the delay in milliseconds before the\n"
+	"\t                      pins are set to the rest level (200 ms)\n"
+	"\t--port=PORTNUMBER     Specify the parallel port to use. On\n"
+	"\t                      windows, this value refers to the memory\n"
+	"\t                      address to use (0x378). On Linux, this\n"
+	"\t                      refers to the number of parport device\n"
+	"\t                      to use (default is 0 which means that\n"
+	"\t                      /dev/parport0 will be used)\n"
+	"\t-h, --help            Display this help\n";
+
+
 int main(int argc, char *argv[])
 {
 	struct lpttrigger *trigg;
-	unsigned int data;
-	int key, retcode;
+	unsigned int data, iarg, delay;
+	int key, retcode, port;
 	int keystroke_mode = 0;
 	char value[16];
 
-	trigg = OpenLPTTrigger(0, 200, -1);
-	if (!trigg)
-		return 1;
+	// default values
+	data = 0;
+	delay = 200;
+	port = -1;
 
-	printf("Enter an hexadecimal number to be sent to the parallel port (number will be troncate to an 8 bits integer) or a command:\n"
-	"\t'key' to enter into the keystroke mode\n"
-	"\t'exit' to from the software\n");
+	// Process command line arguments
+	for (iarg=1; iarg<argc; iarg++) {
+		if ((strcmp("--help",argv[iarg])==0) 
+		     || (strcmp("-h",argv[iarg])==0)) {
+			printf(usage_str);
+			return 0;
+		}
+		else if (!sscanf(argv[iarg],"--base-level=%x", &data) &&
+		         !sscanf(argv[iarg],"--delay=%u", &delay) &&
+		         !sscanf(argv[iarg],"--port=%x", (unsigned int*)&port)) {
+			fprintf(stderr, "testport: Invalid option\n"
+					"\ttry testport --help\n");
+			return 1;
+		}
+
+	}
+
+
+	trigg = OpenLPTTrigger(data, delay, port);
+	if (!trigg) {
+		fprintf(stderr, "Cannot open the parallel port\n");
+		return 1;
+	}
+
+	printf("Enter an hexadecimal number to be sent to the parallel port"
+		"(number will be troncated to an 8 bits integer)"
+		" or a command:\n"
+		"\t'key' to enter into the keystroke mode\n"
+		"\t'exit' to from the software\n");
 
 	while (1) {
 		if (keystroke_mode) {
