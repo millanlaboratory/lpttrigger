@@ -1,13 +1,14 @@
 #include <stdio.h>
+#include <string.h>
 #include "lpttrigger.h"
 
 #ifndef WIN32
 #include <termios.h>
 #include <unistd.h>
 #include <assert.h>
-#include <string.h>
 
-int getch(void)
+
+int _getch(void)
 {
 	int c = 0;
 
@@ -31,6 +32,7 @@ int getch(void)
 
 #else				// WIN32
 #include <conio.h>
+
 #endif				// WIN32
 
 
@@ -69,7 +71,7 @@ int main(int argc, char *argv[])
 	while (1) {
 		if (keystroke_mode) {
 			// Keystroke mode
-			key = getch();
+			key = _getch();
 			if (key == ESCAPE_CODE) {
 				printf("normal mode: enter an hexadecimal number or a command ('key' or 'exit')\n");
 				keystroke_mode = 0;
@@ -97,7 +99,7 @@ int main(int argc, char *argv[])
 
 		data &= 0xff;
 		printf("\tsend 0x%02x  (%08u)\n", data, to_decbin(data));
-//              SignalTrigger(trigg, i);
+		SignalTrigger(trigg, data);
 	}
 
 	CloseLPTTrigger(trigg);
