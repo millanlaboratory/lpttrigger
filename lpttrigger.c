@@ -61,7 +61,7 @@ void* ResettingTriggerFunc(void* arg)
 		if (trigg->cond_var & RESTART_TIMER) {
 			// increase the timeout
 			clock_gettime(CLOCK_REALTIME, &timeout);
-			increase_timespec(timeout, trigg->duration*100000);
+			increase_timespec(timeout, trigg->duration*1000000);
 
 			// update the state
 			trigg->cond_var &= ~RESTART_TIMER;
