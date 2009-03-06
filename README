@@ -1,0 +1,10 @@
+run
+$ autoreconf -i
+
+then 
+
+$ configure
+$ make
+$ make install
+
+see INSTALL file
