@@ -4,3 +4,7 @@
 
 * lpttrigger.c, testport.c, lptwriter-linux.c, lptwriter-win32.cpp: Include
 config header if necessary
+
+* lpttrigger.c, clock_gettime.h, clock_gettime.c timepsec.h: modify headers
+inclusion
+

@@ -2,9 +2,9 @@
 	Copyright (C) 2009  EPFL (Ecole Polytechnique Fédérale de Lausanne)
 	Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>
 
-    This file is part of the act2demux library
+    This file is part of the lpttrigger library
 
-    The act2demux library is free software: you can redistribute it and/or
+    The lpttrigger library is free software: you can redistribute it and/or
     modify it under the terms of the version 3 of the GNU General Public
     License as published by the Free Software Foundation.
 
@@ -19,7 +19,10 @@
 #ifndef _CLOCK_GETTIME_H_
 #define _CLOCK_GETTIME_H_
 
-#include <config.h>
+#if HAVE_CONFIG_H
+# include <config.h>
+#endif
+
 #include <time.h>
 
 #if !HAVE_DECL_CLOCK_GETTIME
