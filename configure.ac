@@ -44,7 +44,7 @@ AM_CONDITIONAL([LINUX_OS], [test $os_support = linux])
 AM_CONDITIONAL([WIN32_OS], [test $os_support = win32])
 AM_CONDITIONAL([INSTALL_WINIO], [test $inst_winio = true -a $os_support = win32])
 
-AC_SEARCH_LIBS([pthread_create], [pthread posix4])
+AC_SEARCH_LIBS([pthread_create], [pthread posix4], [], AC_MSG_ERROR([The pthread library must be installed. Consider the installation of pthreads-win32 if on windows platform.]))
 AC_SEARCH_LIBS(clock_gettime, [rt posix4])
 
 AC_CHECK_DECLS([clock_gettime], [], [], [[#include <time.h>]])
