@@ -7,16 +7,17 @@
  * This is the implementation of the LPTtrigger
  *
  */
+
+#if HAVE_CONFIG_H
+# include <config.h>
+#endif
+
+
 #include "lpttrigger.h"
 #include "lptwriter.h"
 #include <pthread.h>
 #include <errno.h>
 #include <stdlib.h>
-
-#ifdef WIN32
-#include <compat-win32.h>
-#endif
-
 
 #define STOP_THREAD	1
 #define RESTART_TIMER	2
