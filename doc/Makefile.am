@@ -1,4 +1,4 @@
-EXTRA_DIST = doxygen.cfg.in bdffile_interface.txt
+EXTRA_DIST = doxygen.cfg.in
 
 
 html: doxygen.cfg
