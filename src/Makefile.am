@@ -10,7 +10,7 @@ if LINUX_OS
 liblpttrigger_la_SOURCES += lptwriter-linux.c
 endif
 if WIN32_OS
-liblpttrigger_la_SOURCES += lptwriter-win32.cpp
+liblpttrigger_la_SOURCES += lptwriter-win32.cpp winio_dll.h
 endif
 liblpttrigger_la_LIBADD = $(LTLIBOBJS)
 

@@ -33,7 +33,17 @@ typedef int clockid_t;
 #  define CLOCK_REALTIME	1
 # endif //!HAVE_DECL_CLOCKID_T
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 int clock_gettime(clockid_t clk_id, struct timespec *tp);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 # endif //!HAVE_DECL_CLOCK_GETTIME
 
 #endif

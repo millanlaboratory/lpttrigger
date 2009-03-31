@@ -24,11 +24,21 @@
 #endif
 #include <time.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 #if !HAVE_STRUCT_TIMESPEC
 struct timespec {
 	time_t	tv_sec;		/* seconds */
 	long	tv_nsec;	/* nanoseconds */
 };
 #endif //!HAVE_DECL_STRUCT_TIMESPEC
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif //_TIMESPEC_H_

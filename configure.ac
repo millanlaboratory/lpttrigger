@@ -53,6 +53,6 @@ AC_REPLACE_FUNCS([clock_gettime])
 AC_CHECK_FUNCS([gettimeofday ftime _ftime select])
 
 
-AC_CONFIG_FILES([Makefile lib/Makefile src/Makefile doc/Makefile doc/doxygen.cfg])
+AC_CONFIG_FILES([Makefile lib/Makefile src/Makefile third/Makefile doc/Makefile doc/doxygen.cfg])
 AC_OUTPUT
 

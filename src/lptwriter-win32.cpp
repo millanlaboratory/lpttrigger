@@ -23,8 +23,26 @@
 
 #include <windows.h>
 #include <cstdlib>
-#include "Winio.h"
+#include <tchar.h>
+//#include "winio_dll.h"
 #include "lptwriter.h"
+
+
+typedef bool (_stdcall *INITIALIZEWINIOPROC)(void);
+typedef void (_stdcall *SHUTDOWNWINIOPROC)(void);
+typedef PBYTE (_stdcall *MAPPHYSTOLINPROC)(PBYTE, DWORD, HANDLE*);
+typedef bool (_stdcall *UNMAPTHYSICALMEMORYPROC)(HANDLE, PBYTE);
+typedef bool (_stdcall *GETPHYSLONGPROC)(PBYTE pbPhysAddr, PDWORD);
+typedef bool (_stdcall *SETPHYSLONGPROC)(PBYTE pbPhysAddr, DWORD);
+typedef bool (_stdcall *GETPORTVALPROC)(WORD, PDWORD, BYTE);
+typedef bool (_stdcall *SETPORTVALPROC)(WORD, DWORD, BYTE);
+typedef bool (_stdcall *INSTALLWINIODRIVERPROC)(PSTR, bool);
+typedef bool (_stdcall *REMOVEWINIODRIVERPROC)();
+
+INITIALIZEWINIOPROC InitializeWinIo;
+SHUTDOWNWINIOPROC ShutdownWinIo;
+SETPORTVALPROC SetPortVal;
+HMODULE hDLL = NULL;
 
 static int num_use = 0;
 
@@ -33,13 +51,43 @@ struct lptport {
 };
 
 
+
+bool init_winio(void)
+{
+	hDLL = LoadLibrary(_T("WinIo.dll"));
+	if (!hDLL)
+		return false;
+	
+	InitializeWinIo = (INITIALIZEWINIOPROC) GetProcAddress(hDLL, "InitializeWinIo");
+	ShutdownWinIo = (SHUTDOWNWINIOPROC) GetProcAddress(hDLL, "ShutdownWinIo");
+	SetPortVal =	(SETPORTVALPROC) GetProcAddress(hDLL, "SetPortVal");
+	
+	if (!InitializeWinIo || !ShutdownWinIo || !SetPortVal)
+		return false;
+
+	return InitializeWinIo();
+}
+
+
+int close_winio(void)
+{
+	if (hDLL) {
+		if (ShutdownWinIo)
+			ShutdownWinIo();
+		FreeLibrary(hDLL);
+	}
+	hDLL = NULL;
+	return 1;
+}
+
+
 struct lptport* OpenLPTPort(int portnum)
 {	
 	struct lptport* port;
 	
 	// Initialize the WinIO lib once for all
 	if (!num_use)
-		if (!InitializeWinIo())
+		if (!init_winio())
 			return NULL;
 	num_use++;
 
@@ -51,7 +99,7 @@ struct lptport* OpenLPTPort(int portnum)
 	port = (struct lptport*)std::malloc(sizeof(&port));
 	if (!port) {
 		if (!--num_use)
-			ShutdownWinIo();
+			close_winio();
 		return NULL;
 	}
 	
@@ -64,7 +112,7 @@ void CloseLPTPort(struct lptport* port)
 {
 	if (port) {
 		if (!--num_use)
-			ShutdownWinIo();
+			close_winio();
 		free(port);
 	}
 }
