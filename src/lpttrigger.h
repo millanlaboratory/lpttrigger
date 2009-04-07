@@ -39,7 +39,7 @@ struct lpttrigger *OpenLPTTrigger(unsigned char base_level, unsigned int duratio
 void CloseLPTTrigger(struct lpttrigger *trigg); //!< Close the connection to the port and free ressources
 void SignalTrigger(struct lpttrigger *trigg, unsigned int message); //!< Send a trigger signal
 
-#ifdef __cpluplus
+#ifdef __cplusplus
 }
 #endif
 
