@@ -3,7 +3,7 @@ AM_CFLAGS = -I$(top_srcdir)/lib
 
 lib_LTLIBRARIES = liblpttrigger.la
 bin_PROGRAMS = testport
-include_HEADERS = lpttrigger.h
+include_HEADERS = lpttrigger.h lptwriter.h
 
 liblpttrigger_la_SOURCES = lpttrigger.h lpttrigger.c lptwriter.h
 if LINUX_OS
