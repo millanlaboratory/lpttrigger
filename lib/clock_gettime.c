@@ -58,7 +58,7 @@ int clock_gettime(clockid_t clk_id, struct timespec *tp)
 
 		ftime(&now);
 		tp->tv_sec = now.time;
-		tp->tv_nsec = now.millitm*1000000;
+		tp->tv_nsec = ((long)now.millitm) * 1000000;
 	}
 #else
 # error There is no replacement for clock_gettime

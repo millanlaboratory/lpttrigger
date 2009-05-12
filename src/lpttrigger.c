@@ -101,6 +101,7 @@ void* ResettingTriggerFunc(void* arg)
 	}
 	SetLPTData(trigg->port, trigg->base_level);
 	pthread_mutex_unlock(&(trigg->cond_mtx));
+	pthread_exit(0);
 	return NULL;
 }
 
