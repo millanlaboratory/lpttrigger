@@ -35,20 +35,25 @@ case $host in
 		;;
 esac
 
-AC_ARG_ENABLE([instwinio],
-	AC_HELP_STRING([--disable-instwinio@<:@=ARG@:>@],[Do not install the winio library@<:@DEFAULT=no@:>@ (available only on Windows)]),
-	[case "${enableval}" in
-		yes) instwinio=false ;;
-		no) instwinio=true ;;
-		*) AC_MSG_ERROR([bad value ${enableval} for --disable-instwinio]) ;;
+
+AC_ARG_ENABLE(install-winio,
+	AC_HELP_STRING([--disable-install-winio],[Do not install the winio library (available only on Windows)]),
+	[case $enableval in
+		yes) 
+			installwinio=true
+			;;
+		no) 
+			installwinio=false 
+			;;
+		*) AC_MSG_ERROR([bad value $enableval for --disable-install-winio]) ;;
 	esac],
-	[instwinio=true])
+	[installwinio=true])
 
-AC_ARG_VAR([WINSYSDIR],[Path to the system32 directory of Windows (default:/c/WINDOWS/system32)])
+AC_ARG_VAR([WINSYSDIR],[Path to the system32 directory of Windows if applicable (default:/c/WINDOWS/system32)])
+AM_CONDITIONAL([INSTALL_WINIO], [test "$installwinio" = "true" && test "$os_support" = "win32"])
 
-AM_CONDITIONAL([LINUX_OS], [test $os_support = linux])
-AM_CONDITIONAL([WIN32_OS], [test $os_support = win32])
-AM_CONDITIONAL([INSTALL_WINIO], [test "$inst_winio = true" && test "$os_support = true"])
+AM_CONDITIONAL([LINUX_OS], [test "$os_support" = "linux"])
+AM_CONDITIONAL([WIN32_OS], [test "$os_support" = "win32"])
 
 AC_SEARCH_LIBS([pthread_create], [pthread posix4], [], AC_MSG_ERROR([The pthread library must be installed. Consider the installation of pthreads-win32 if on windows platform.]))
 AC_SEARCH_LIBS(clock_gettime, [rt posix4])
