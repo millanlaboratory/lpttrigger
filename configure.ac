@@ -65,6 +65,6 @@ AC_CHECK_FUNCS([gettimeofday ftime _ftime select])
 
 AC_SUBST(AM_LDFLAGS)
 
-AC_CONFIG_FILES([Makefile lib/Makefile src/Makefile third/Makefile doc/Makefile doc/doxygen.cfg])
+AC_CONFIG_FILES([Makefile lib/Makefile src/Makefile third/Makefile tests/Makefile doc/Makefile doc/doxygen.cfg])
 AC_OUTPUT
 

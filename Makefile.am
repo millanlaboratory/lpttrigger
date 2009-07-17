@@ -1,2 +1,2 @@
 ACLOCAL_AMFLAGS=-I m4
-SUBDIRS = lib src doc third
+SUBDIRS = lib src doc third tests
