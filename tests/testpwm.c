@@ -1,10 +1,10 @@
 #include <stdio.h>
-#include <lptpwm.h>
 #include <unistd.h>
+#include <lptpwm.h>
 
 
 #define NUMCH	4
-#define FREQ	1000
+#define FREQ	100
 
 int main(int argc, char* argv[])
 {

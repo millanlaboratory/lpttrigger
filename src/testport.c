@@ -109,7 +109,7 @@ int main(int argc, char *argv[])
 	for (iarg=1; iarg<argc; iarg++) {
 		if ((strcmp("--help",argv[iarg])==0) 
 		     || (strcmp("-h",argv[iarg])==0)) {
-			printf(usage_str);
+			printf("%s\n",usage_str);
 			return 0;
 		}
 		else if (!sscanf(argv[iarg],"--base-level=%x", &data) &&
