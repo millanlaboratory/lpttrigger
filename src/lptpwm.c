@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <pthread.h>
 #include <time.h>
 #include <string.h>
@@ -46,7 +47,7 @@ void* pulse_width_modulation_thread(void* arg)
 	// Init 
 	delays = malloc(numch*sizeof(*(pwm->delays)));
 	SetLPTData(port, 0);
-	clock_gettime(CLOCK_MONOTONIC, &ts);
+	clock_gettime(CLOCK_REALTIME, &ts);
 
 
 	while (running) {
@@ -71,7 +72,7 @@ void* pulse_width_modulation_thread(void* arg)
 
 			// Prepare and wait for the next pulse change
 			add_to_timestamp(&evt_ts, delays[i]);
-			while (clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME,
+			while (clock_nanosleep(CLOCK_REALTIME, TIMER_ABSTIME,
 			                &evt_ts, NULL));
 		}
 
@@ -128,7 +129,7 @@ struct lptpwm *lptpwm_open(int freq, unsigned int numch, int portnum)
 	// Create the thread
 	pwm->run_th = 1;
 	pthread_mutex_init(&(pwm->update_mtx), NULL);
-	if (pthread_create(&(pwm->thread_id), NULL, pulse_width_modulation_thread, pwm))
+	if (pthread_create(&(pwm->thread_id), NULL, pulse_width_modulation_thread, pwm)) 
 		goto error;
 	
 
