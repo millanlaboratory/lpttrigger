@@ -1,10 +1,53 @@
-run
-$ autoreconf -i
+                            LPTTRIGGER
 
-then 
 
-$ configure
-$ make
-$ make install
+Presentation
+============
 
-see INSTALL file
+This package provides a C library implementing 3 main funtionnalities using
+the parallel port.
+
+The first one is an abstract layer allowing to set the level on the data
+pins of the parallel port (lptwriter). This allows to implement a basic
+digital output based on TTL signals.
+
+The second functionality is a triggering system that allows to send a
+trigger signal to each data pins on the parallel port. It ensures that each
+trigger will last AT LEAST for a certain amount of time (set when the port
+is opened). When used with a sampling device, it allows to ensure that each
+trigger will be "seen" by the device (will last for more than the duration
+of a sample). Beware that it ensures a minimum duration for each trigger
+but not a minimal duration between the trigger: if two triggers are sent
+very closely (in time domain) to the same data line, there is a risk that
+the two triggers will be merge (there will be only one rising edge).
+
+the third functionality is a pulse width-modulated signal generator.
+
+
+Supported platforms
+===================
+
+Only GNU/Linux and windows platform are supported. Due to the lack of
+driver to access to parallel port hardware, the support of Mac OS X has
+been dropped. On Windows, the access to the parallel port is implemented
+through the use of WINIO library. In addition, due to the lack of high
+performance timing functions on this platform (equivalent to
+clock_nanosleep), the pulse width modulated signal generator is not
+implemented for it.
+
+
+Compilation options
+===================
+
+This library is organized as a GNU package and can be compiled and
+installed in the same way (see INSTALL file for further information).
+However, few non standard options are proposed to be passed to the
+configure script:
+
+    --disable-install-winio : Don't install the provided copy of the winio
+        library (applicable only on windows). This can prevent conflicts
+	with preinstalled version of the library (in particular with the
+	daq toolbox of MATLAB). If the installation is disabled, the user
+	should make sure that there is a copy of winio.dll available in a
+	folder accesible by the Path environment variable of windows. 
+

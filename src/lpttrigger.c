@@ -40,13 +40,13 @@
 #endif
 
 
-
 #include "lpttrigger.h"
 #include "lptwriter.h"
 
 #define STOP_THREAD	1
 #define RESTART_TIMER	2
 
+const char lpt_version[] = PACKAGE_STRING;
 
 struct lpttrigger {
 	unsigned int duration;
@@ -192,4 +192,9 @@ void SignalTrigger(struct lpttrigger *trigg, unsigned int message)
 	trigg->cond_var |= RESTART_TIMER;
 	pthread_cond_signal(&(trigg->cond));
 	pthread_mutex_unlock(&(trigg->cond_mtx));
+}
+
+const char* lpttrigger_get_string(void)
+{
+	return lpt_version;
 }

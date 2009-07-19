@@ -1,4 +1,18 @@
-AC_INIT(lpttrigger,0.3)
+# If the library source code has changed at all since the last update, then increment
+#      revision.
+# If any interfaces have been added, removed, or changed since the last update, increment
+#      current, and set revision to 0.
+# If any interfaces have been added since the last public release, then increment age.
+# If any interfaces have been removed since the last public release, then set age to 0.
+
+m4_define([lib_release],0)
+m4_define([lib_current],0)
+m4_define([lib_revision],0)
+m4_define([lib_age],0)
+
+
+AC_INIT(lpttrigger,[lib_release.lib_current.lib_age.lib_revision])
+AC_CONFIG_SRCDIR([src/lpttrigger.c])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_LIBOBJ_DIR([lib])
@@ -12,7 +26,7 @@ AC_CANONICAL_BUILD
 AC_PROG_CC_C99
 AM_PROG_CC_C_O
 AC_PROG_CXX
-#AC_DISABLE_SHARED
+
 LT_INIT([win32-dll])
 AC_PROG_LIBTOOL
 AC_SUBST(LIBTOOL_DEPS)
@@ -62,6 +76,11 @@ AC_CHECK_DECLS([clock_gettime], [], [], [[#include <time.h>]])
 AC_CHECK_TYPES([[struct timespec], [clockid_t]])
 AC_REPLACE_FUNCS([clock_gettime])
 AC_CHECK_FUNCS([gettimeofday ftime _ftime select])
+
+AC_SUBST([RELEASE],[lib_release])
+AC_SUBST([CURRENT],[lib_current])
+AC_SUBST([REVISION],[lib_revision])
+AC_SUBST([AGE],[lib_age])
 
 AC_SUBST(AM_LDFLAGS)
 

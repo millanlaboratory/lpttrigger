@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
 
 	}
 
-
+	printf("Using %s\n", lpttrigger_get_string());
 	trigg = OpenLPTTrigger(data, delay, port);
 	if (!trigg) {
 		fprintf(stderr, "Cannot open the parallel port\n");
