@@ -129,7 +129,7 @@ struct lptpwm *lptpwm_open(int freq, unsigned int numch, int portnum)
 	// Create the thread
 	pwm->run_th = 1;
 	pthread_mutex_init(&(pwm->update_mtx), NULL);
-	if (pthread_create(&(pwm->thread_id), NULL, pulse_width_modulation_thread, pwm))
+	if (pthread_create(&(pwm->thread_id), NULL, pulse_width_modulation_thread, pwm)) 
 		goto error;
 	
 
