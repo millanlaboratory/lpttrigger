@@ -1,0 +1,19 @@
+.\"Copyright 2010 (c) EPFL
+.TH LPTTRIGGER_GET_STRING 3 2010 "EPFL" "lpttrigger library manual"
+.SH NAME
+lpttrigger_get_string - returns the version string of the runtime
+.SH SYNOPSIS
+.LP
+.B #include <lpttrigger.h>
+.sp
+.BI "const char* lpttrigger_get_string(void);"
+.br
+.SH DESCRIPTION
+.LP
+This function returns the version string of the library. This can be used at
+runtime to identify the version of the library that is being used.
+.SH "RETURN VALUE"
+.LP
+Returns a pointer to const char pointing to the version string.
+
+
