@@ -1,0 +1,37 @@
+.\"Copyright 2010 (c) EPFL
+.TH LPTPWM_OPEN 3 2010 "EPFL" "lpttrigger library manual"
+.SH NAME
+lptpwm_open, lptpwm_close - Open and close the parallel port for pulse width modulation
+.SH SYNOPSIS
+.LP
+.B #include <lptpwm.h>
+.sp
+.BI "struct lptpwm* lptpwm_open(int " freq ", unsigned int " numch ", int " portnum ");"
+.br
+.BI "void lptpwm_close(struct lptpwm *" pwm ");"
+.br
+.SH DESCRIPTION
+.LP
+\fBlptpwm_open\fP() opens the port specified by \fIportnum\fP for pulse width
+modulation. If \fIportnum\fP is a negative value, the port opened is the
+default port. The meaning of a non negtive value is platform dependent: On unix
+like OS (Linux...), it refers to the number of the device name (for example
+/dev/parport1 on linux).  On windows, it refers to the address value.
+.LP
+\fIfreq\fP is the cycle frequency of pulse width modulated signal. \fInumch\fP
+indicates the number of channels that should be used (it should not be bigger
+than 8).
+.LP
+\fBlptpwm_close\fP() closes a previously opened parallel port for pulse width
+modulation refered by \fIpwm\fP. If \fIpwm\fP is NULL, this function does
+nothing.
+.SH "RETURN VALUE"
+.LP
+In case of success, \fBlptpwm_open\fP() returns the handle to the lptpwm
+structure. In case of failure, NULL is returned.
+.LP
+\fBlptpwm_close\fP() returns nothing.
+.SH "SEE ALSO"
+.BR lptpwm_setlevels (3)
+
+

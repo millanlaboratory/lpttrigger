@@ -1,0 +1,24 @@
+.\"Copyright 2010 (c) EPFL
+.TH SIGNALTRIGGER 3 2010 "EPFL" "lpttrigger library manual"
+.SH NAME
+SignalTrigger - Send triggers to the parallel port
+.SH SYNOPSIS
+.LP
+.B #include <lpttrigger.h>
+.sp
+.BI "void SignalTrigger(struct lpttrigger *" trigg ", unsigned int " message ");"
+.br
+.SH DESCRIPTION
+.LP
+\fBSignalTrigger\fP() changes the state of the bits specified by \fImessage\fP
+for at least the duration specified when the \fItrigg\fP has been created. The
+function returns immediatly, i.e. it \fBdoes not\fP wait the trigger duration before
+returning.
+.SH "RETURN VALUE"
+.LP
+None.
+.SH "SEE ALSO"
+.BR OpenLPTTrigger (3)
+
+
+

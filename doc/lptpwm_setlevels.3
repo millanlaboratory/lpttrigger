@@ -1,0 +1,28 @@
+.\"Copyright 2010 (c) EPFL
+.TH LPTPWM_SETLEVELS 3 2010 "EPFL" "lpttrigger library manual"
+.SH NAME
+lptpwm_setlevels - Set the modulation coefficient for each channel
+.SH SYNOPSIS
+.LP
+.B #include <lptpwm.h>
+.sp
+.BI "void lptpwm_setlevels(struct lptpwm *" pwm ", const float " val "[]);
+.br
+.SH DESCRIPTION
+.LP
+\fBlptpwm_setlevels\fP() changes the modulation coefficient for each channel
+for the port refered by \fIpwm\fP. The coefficients are specified by \fIval\fP
+which expects an array of float values whose number should be the same as the
+number of channels specified at the creation of the lptpwm structure \fIpwm\fP.
+.LP
+Each value in \fIval\fP should be a float value between 0 (channel never "on")
+and 1 (channel always "on"). In addition, the channels are exclusive, i.e.
+only one channel is "on" at the same time. This means in practice that the sum
+of all values in \fIval\fP should not be bigger than 1.
+.SH "RETURN VALUE"
+.LP
+None.
+.SH "SEE ALSO"
+.BR lptpwm_open (3)
+
+

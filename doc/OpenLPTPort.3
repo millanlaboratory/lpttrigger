@@ -1,0 +1,34 @@
+.\"Copyright 2010 (c) EPFL
+.TH OPENLPTPORT 3 2010 "EPFL" "lpttrigger library manual"
+.SH NAME
+OpenLPTPORT, CloseLPTPort, SetLPTData - parallel port access abstraction layer
+.SH SYNOPSIS
+.LP
+.B #include <lptwriter.h>
+.sp
+.BI "struct lptport* OpenLPTPort(int " portnum ");"
+.br
+.BI "void CloseLPTPort(struct lptport* " port ");"
+.br
+.BI "void SetLPTData(struct lptport* " port ", unsigned char " data ");"
+.br
+.SH DESCRIPTION
+.LP
+\fBOpenLPTPort\fP() opens the port specified by \fIportnum\fP for general use.
+if \fIportnum\fP is a negative value, the port opened is the default port. The
+meaning of a non negtive value is platform dependent: On unix like OS
+(Linux...), it refers to the number of the device name (for example
+/dev/parport1 on linux).  On windows, it refers to the address value.
+.LP
+\fBCloseLPTPort\fP() closes a previously opened parallel port for general use
+refered by \fIport\fP. If \fIport\fP is NULL, this function does nothing.
+.LP
+\fBSetLPTData\fP() set the values of the data pins of a parallel port refered by
+\fIport\fP according to the byte value \fIdata\fP.
+.SH "RETURN VALUE"
+.LP
+In case of success, \fBOpenLPTPort\fP() returns the handle to the lptport
+structure. In case of failure, NULL is returned.
+.LP
+\fBCloseLPTPort\fP() and \fBSetLPTData\fP() return nothing.
+

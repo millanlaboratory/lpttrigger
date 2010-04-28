@@ -1,0 +1,38 @@
+.\"Copyright 2010 (c) EPFL
+.TH OPENLPTTRIGGER 3 2010 "EPFL" "lpttrigger library manual"
+.SH NAME
+OpenLPTTrigger, CloseLPTTrigger - Open and close the parallel port to send trigger
+.SH SYNOPSIS
+.LP
+.B #include <lpttrigger.h>
+.sp
+.BI "struct lpttrigger *OpenLPTTrigger(unsigned char " base_level ","
+.br
+.BI "                                  unsigned int " duration ", int " portnum ");"
+.br
+.BI "void CloseLPTTrigger(struct lpttrigger *" trigg ");"
+.br
+.SH DESCRIPTION
+.LP
+\fBOpenLPTTrigger\fP() opens the port specified by \fIportnum\fP. If
+\fIportnum\fP is a negative value, the port opened is the default port. The
+meaning of a non negtive value is platform dependent: On unix like OS
+(Linux...), it refers to the number of the device name (for example
+/dev/parport1 on linux).  On windows, it refers to the address value.
+.LP
+\fIduration\fP is the minimal amount of time (expressed in milliseconds) a pin
+should stay "on" when it is signaled. \fIbase_level\fP parameter is the "rest
+state" of the pins of the parallel port. It is useful particularly if the
+system you work with detect falling edge of signals.
+.LP
+\fBCloseLPTTrigger\fP() closes a previously opened parallel port for trigger
+refered by \fItrigg\fP. If \fItrigg\fP is NULL, this function does nothing.
+.SH "RETURN VALUE"
+.LP
+In case of success, \fBOpenLPTTrigger\fP() returns the handle to the trigger
+structure. In case of failure, NULL is returned.
+.LP
+\fBCloseLPTTrigger\fP() returns nothing.
+.SH "SEE ALSO"
+.BR SignalTrigger (3)
+
