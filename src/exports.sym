@@ -1,0 +1,10 @@
+OpenLPTPort
+CloseLPTPort
+SetLPTData
+OpenLPTTrigger
+CloseLPTTrigger
+SignalTrigger
+lptpwm_open
+lptpwm_close
+lptpwm_setlevels
+lpttrigger_get_string

@@ -2,9 +2,9 @@
 	Copyright (C) 2009  EPFL (Ecole Polytechnique Fédérale de Lausanne)
 	Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>
 
-    This file is part of the lpttrigger library
+    This file is part of the act2demux library
 
-    The lpttrigger library is free software: you can redistribute it and/or
+    The act2demux library is free software: you can redistribute it and/or
     modify it under the terms of the version 3 of the GNU General Public
     License as published by the Free Software Foundation.
 
@@ -19,26 +19,19 @@
 #ifndef _TIMESPEC_H_
 #define _TIMESPEC_H_
 
-#if HAVE_CONFIG_H
-# include <config.h>
-#endif
 #include <time.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-
-#if !HAVE_STRUCT_TIMESPEC
+#ifndef HAVE_STRUCT_TIMESPEC
 struct timespec {
 	time_t	tv_sec;		/* seconds */
 	long	tv_nsec;	/* nanoseconds */
 };
 #endif //!HAVE_DECL_STRUCT_TIMESPEC
 
-#ifdef __cplusplus
-}
-#endif
-
+# ifndef HAVE_CLOCKID_T
+typedef int clockid_t;
+#  define CLOCK_REALTIME	1
+#  define CLOCK_MONOTONIC	2
+# endif //!HAVE_DECL_CLOCKID_T
 
 #endif //_TIMESPEC_H_

@@ -51,7 +51,7 @@ struct lptport {
 };
 
 
-
+static
 bool init_winio(void)
 {
 	hDLL = LoadLibrary(_T("WinIo.dll"));
@@ -69,6 +69,7 @@ bool init_winio(void)
 }
 
 
+static
 int close_winio(void)
 {
 	if (hDLL) {
@@ -81,6 +82,7 @@ int close_winio(void)
 }
 
 
+API_EXPORTED
 struct lptport* OpenLPTPort(int portnum)
 {	
 	struct lptport* port;
@@ -108,6 +110,8 @@ struct lptport* OpenLPTPort(int portnum)
 	return port;	
 }
 
+
+API_EXPORTED
 void CloseLPTPort(struct lptport* port)
 {
 	if (port) {
@@ -117,6 +121,8 @@ void CloseLPTPort(struct lptport* port)
 	}
 }
 
+
+API_EXPORTED
 void SetLPTData(struct lptport* port, unsigned char data)
 {
 	if (port)

@@ -38,6 +38,7 @@ struct lptport {
 	int fd;
 };
 
+API_EXPORTED
 struct lptport* OpenLPTPort(int portnum)
 {
 	char filename[32];
@@ -78,7 +79,7 @@ struct lptport* OpenLPTPort(int portnum)
 	
 }
 
-
+API_EXPORTED
 void CloseLPTPort(struct lptport* port)
 {
 	if (port) {
@@ -87,6 +88,7 @@ void CloseLPTPort(struct lptport* port)
 	}
 }
 
+API_EXPORTED
 void SetLPTData(struct lptport* port, unsigned char data)
 {
 	if (port)

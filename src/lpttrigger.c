@@ -36,7 +36,7 @@
 #include <stdlib.h>
 
 #if !HAVE_CLOCK_GETTIME
-# include <clock_gettime.h>
+# include "../lib/clock_gettime.h"
 #endif
 
 
@@ -66,6 +66,7 @@ struct lpttrigger {
 } while (0)
 
 
+static
 void* ResettingTriggerFunc(void* arg)
 {
 	struct lpttrigger* trigg = arg;
@@ -116,6 +117,7 @@ void* ResettingTriggerFunc(void* arg)
  * The \c base_level parameter is the "rest state" of the pins of the parallel port. It is useful particularly if the system you work with detect falling edge of signals.
  *
  */
+API_EXPORTED
 struct lpttrigger *OpenLPTTrigger(unsigned char base_level, unsigned int duration, int portnum)
 {
 	struct lpttrigger* trigg;
@@ -155,6 +157,7 @@ error:
  *  
  * \c trigg can be NULL. In that case, the function do nothing.
  */
+API_EXPORTED
 void CloseLPTTrigger(struct lpttrigger *trigg)
 {
 	if (!trigg)
@@ -180,6 +183,7 @@ void CloseLPTTrigger(struct lpttrigger *trigg)
  *
  * Change the state of the bits specified by \c message for \e at \e least \c trigg->duration milliseconds. The function returns immediatly.
  */
+API_EXPORTED
 void SignalTrigger(struct lpttrigger *trigg, unsigned int message)
 {
 	if (!trigg)
@@ -194,6 +198,8 @@ void SignalTrigger(struct lpttrigger *trigg, unsigned int message)
 	pthread_mutex_unlock(&(trigg->cond_mtx));
 }
 
+
+API_EXPORTED
 const char* lpttrigger_get_string(void)
 {
 	return lpt_version;

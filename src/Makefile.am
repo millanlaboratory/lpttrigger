@@ -1,5 +1,5 @@
+EXTRA_DIST = exports.sym
 AUTOMAKE_OPTIONS = subdir-objects
-AM_CFLAGS = -I$(top_srcdir)/lib
 
 lib_LTLIBRARIES = liblpttrigger.la
 bin_PROGRAMS = testport
@@ -14,7 +14,12 @@ endif
 if WIN32_OS
 liblpttrigger_la_SOURCES += lptwriter-win32.cpp winio_dll.h
 endif
-liblpttrigger_la_LDFLAGS = $(AM_LDFLAGS) -version-info $(CURRENT):$(REVISION):$(AGE) -release $(RELEASE)
+
+liblpttrigger_la_LDFLAGS = $(AM_LDFLAGS) \
+                           -version-info $(CURRENT):$(REVISION):$(AGE) \
+			   -release $(RELEASE)	\
+			   -export-symbols $(srcdir)/exports.sym \
+			   -no-undefined
 liblpttrigger_la_LIBADD = $(LTLIBOBJS)
 
 testport_SOURCES = testport.c

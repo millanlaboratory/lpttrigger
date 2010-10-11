@@ -1,3 +1,7 @@
+#if HAVE_CONFIG_H
+# include <config.h>
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
@@ -6,6 +10,12 @@
 #include "lptwriter.h"
 #include "lptpwm.h"
 
+#if !HAVE_CLOCK_GETTIME
+# include "../lib/clock_gettime.h"
+#endif
+#if !HAVE_CLOCK_NANOSLEEP
+# include "../lib/clock_nanosleep.h"
+#endif
 
 
 
@@ -24,6 +34,7 @@ struct lptpwm
 
 #define NSEC_PER_SEC 1000000000
 
+static
 void add_to_timestamp(struct timespec* ts, long nsec)
 {
 	nsec += ts->tv_nsec;		
@@ -31,7 +42,7 @@ void add_to_timestamp(struct timespec* ts, long nsec)
 	ts->tv_nsec = nsec%NSEC_PER_SEC;
 }
 
-
+static
 void* pulse_width_modulation_thread(void* arg)
 {
 	struct lptpwm* pwm = arg;
@@ -88,7 +99,7 @@ void* pulse_width_modulation_thread(void* arg)
 }
 
 
-
+API_EXPORTED
 struct lptpwm *lptpwm_open(int freq, unsigned int numch, int portnum)
 {
 	struct lptpwm* pwm = NULL;
@@ -143,6 +154,7 @@ error:
 	return NULL;
 }
 
+API_EXPORTED
 void lptpwm_close(struct lptpwm *pwm)
 {
 	if (pwm) {
@@ -161,6 +173,8 @@ void lptpwm_close(struct lptpwm *pwm)
 	}
 }
 
+
+API_EXPORTED
 void lptpwm_setlevels(struct lptpwm *pwm, const float val[])
 {
 	int i;
