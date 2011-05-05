@@ -95,8 +95,8 @@ char usage_str[] =
 int main(int argc, char *argv[])
 {
 	struct lpttrigger *trigg;
-	unsigned int data, iarg, delay;
-	int key, retcode, port;
+	unsigned int data, delay;
+	int iarg, key, retcode, port;
 	int keystroke_mode = 0;
 	char value[16];
 

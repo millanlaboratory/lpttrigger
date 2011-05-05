@@ -9,7 +9,7 @@
 #define NUMCH	4
 #define FREQ	100
 
-int main(int argc, char* argv[])
+int main(void)
 {
 	struct lptpwm* pwm;
 	float val[NUMCH] = {0.1f, 0.1f, 0.1f, 0.1f};
@@ -23,11 +23,11 @@ int main(int argc, char* argv[])
 
 	lptpwm_setlevels(pwm, val);
 	for (i=0; i<NUMCH + 1; i++) {
-	/*	for (j=0; j<NUMCH; j++) {
+		for (j=0; j<NUMCH; j++) {
 			val[j] = 0.0f;
-			if (i/j == 0)
+			if (i < j)
 				val[j] = 0.1f;
-		}*/
+		}
 		lptpwm_setlevels(pwm, val);
 		sleep(1);
 	}

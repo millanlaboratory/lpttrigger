@@ -49,10 +49,10 @@ void* pulse_width_modulation_thread(void* arg)
 	struct timespec ts, evt_ts;
 	struct lptport* port = pwm->port;
 	pthread_mutex_t* update_mtx = &(pwm->update_mtx);
-	int i, running = 1;
+	int running = 1;
 	long* delays = NULL;
 	long frame_duration = pwm->duration;
-	unsigned int numch = pwm->numch;
+	unsigned int i, numch = pwm->numch;
 
 	
 	// Init 
@@ -104,8 +104,8 @@ struct lptpwm *lptpwm_open(int freq, unsigned int numch, int portnum)
 {
 	struct lptpwm* pwm = NULL;
 	long* delays;
-	int* data;
-	int i;
+	unsigned int* data;
+	unsigned int i;
 	struct lptport* port = NULL;
 
 	numch++;
@@ -177,7 +177,7 @@ void lptpwm_close(struct lptpwm *pwm)
 API_EXPORTED
 void lptpwm_setlevels(struct lptpwm *pwm, const float val[])
 {
-	int i;
+	unsigned int i;
 	long remaining = pwm->duration;
 
 	for (i=0; i<pwm->numch-1; i++) {
