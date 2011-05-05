@@ -1,68 +1,221 @@
-2010-04-28 Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2011-05-05
 
-	* doc/Makefile.am, doc/lpttrigger_get_string.3: Add the manpage
-	of lpttrigger_get_string
+    Fix warnings
 
-	* commit 0b74e85320c680af244cb10aae04eb6514395a9b
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2011-05-05
 
-2010-04-28 Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>
+    Add Debian packaging infrastructure
 
-	* doc/CloseLPTPort.3, doc/CloseLPTTrigger.3, doc/Makefile.am,
-	doc/OpenLPTPort.3, doc/OpenLPTTrigger.3, doc/SetLPTData.3,
-	doc/SignalTrigger.3, doc/lptpwm_close.3, doc/lptpwm_open.3,
-	doc/lptpwm_setlevels.3, doc/testport.1: Creation of manpages
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2011-05-05
 
-	The manpages of lptrigger, lptwriter, lptpwm and testport have
-	been added.  Although there might still remains few glitches in
-	them, their content should be up-to-date. Any modification to
-	the API should now be integrated in the manpages as well.
+    Get rid of release number (follow libtool scheme)
 
-	* commit cf5a0241df3490c3e95432630c24925d67471c7d
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2010-10-11
 
-2009-07-19 bourdaud <bourdaud@3b4714c8-b19d-487d-9711-26c957be2895>
+    Repackaging and symbols cleaning
+    
+    Update configure.ac to make silent build. Add clock_nanosleep to replacement
+    functions. Hide unexported symbols and add exports.sym file
 
-	* src/lptpwm.c: Reset to REALTIME clock
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2010-04-28
 
-	* commit aa047251ba08ad03456645120cf8aca00d7508ec
+    Release 0.0.0.0
 
-2009-07-19 bourdaud <bourdaud@3b4714c8-b19d-487d-9711-26c957be2895>
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2010-04-28
 
-	* src/lptpwm.c: Add pulse-width modulation
+    Add the manpage of lpttrigger_get_string
 
-	* commit 4bf80701934934a1e7a03eba01a1769c8c7b5f1b
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2010-04-28
 
-2009-07-19 bourdaud <bourdaud@3b4714c8-b19d-487d-9711-26c957be2895>
+    Creation of manpages
+    
+    The manpages of lptrigger, lptwriter, lptpwm and testport have been added.
+    Although there might still remains few glitches in them, their content should
+    be up-to-date. Any modification to the API should now be integrated in the
+    manpages as well.
 
-	* README, configure.ac, src/Makefile.am, src/lpttrigger.c,
-	src/lpttrigger.h, src/testport.c: Fill README and add runtime
-	versioning
+bourdaud <bourdaud@3b4714c8-b19d-487d-9711-26c957be2895>	2009-07-19
 
-	* commit 5589ded7001aace2c535febfe3a5c6b9bfd6892c
+    Reset to REALTIME clock
+    
+    git-svn-id: https://svn.epfl.ch/svn/activetwotools/trunk/input-output/lpttrigger@80 3b4714c8-b19d-487d-9711-26c957be2895
 
-2009-07-17 bourdaud <bourdaud@3b4714c8-b19d-487d-9711-26c957be2895>
+bourdaud <bourdaud@3b4714c8-b19d-487d-9711-26c957be2895>	2009-07-19
 
-	* src/lptpwm.c, tests/testpwm.c: Reset to REALTIME clock
+    Add pulse-width modulation
+    
+    git-svn-id: https://svn.epfl.ch/svn/activetwotools/trunk/input-output/lpttrigger@79 3b4714c8-b19d-487d-9711-26c957be2895
 
-	* commit f8bbe780370294ff350f71dc90ff120ea46429fa
+bourdaud <bourdaud@3b4714c8-b19d-487d-9711-26c957be2895>	2009-07-19
 
-2009-07-17 bourdaud <bourdaud@3b4714c8-b19d-487d-9711-26c957be2895>
+    Fill README and add runtime versioning
+    
+    git-svn-id: https://svn.epfl.ch/svn/activetwotools/trunk/input-output/lpttrigger@78 3b4714c8-b19d-487d-9711-26c957be2895
 
-	* src/lptpwm.h, src/testport.c, tests/Makefile.am,
-	tests/testpwm.c: Fix some glitches: mainly the inclusion of
-	lptpwm.h
+bourdaud <bourdaud@3b4714c8-b19d-487d-9711-26c957be2895>	2009-07-17
 
-	* commit 1370c6b2d567ccec52fa778941afa2f4cbe54b59
+    Reset to REALTIME clock
+    
+    git-svn-id: https://svn.epfl.ch/svn/activetwotools/trunk/input-output/lpttrigger@69 3b4714c8-b19d-487d-9711-26c957be2895
 
-2009-07-17 bourdaud <bourdaud@3b4714c8-b19d-487d-9711-26c957be2895>
+bourdaud <bourdaud@3b4714c8-b19d-487d-9711-26c957be2895>	2009-07-17
 
-	* tests/Makefile.am, tests/testpwm.c: Add missing tests
+    Fix some glitches: mainly the inclusion of lptpwm.h
+    
+    git-svn-id: https://svn.epfl.ch/svn/activetwotools/trunk/input-output/lpttrigger@68 3b4714c8-b19d-487d-9711-26c957be2895
 
-	* commit 634e41508771f7cf52ad1fb3438f122fede890a8
+bourdaud <bourdaud@3b4714c8-b19d-487d-9711-26c957be2895>	2009-07-17
 
-2009-07-17 bourdaud <bourdaud@3b4714c8-b19d-487d-9711-26c957be2895>
+    Add missing tests
+    
+    git-svn-id: https://svn.epfl.ch/svn/activetwotools/trunk/input-output/lpttrigger@67 3b4714c8-b19d-487d-9711-26c957be2895
 
-	* Makefile.am, configure.ac, src/Makefile.am, src/lptpwm.c,
-	src/lptpwm.h: Add pulse-width modulation
+bourdaud <bourdaud@3b4714c8-b19d-487d-9711-26c957be2895>	2009-07-17
 
-	* commit 26f95e43bd665be20bb556adeffc7c0c132c35c1
+    Add pulse-width modulation
+    
+    git-svn-id: https://svn.epfl.ch/svn/activetwotools/trunk/input-output/lpttrigger@66 3b4714c8-b19d-487d-9711-26c957be2895
 
+Merge: 779f964 11cdef9
+bourdaud <bourdaud@3b4714c8-b19d-487d-9711-26c957be2895>	2009-07-16
+
+    Make the test for install-winio working
+    
+    git-svn-id: https://svn.epfl.ch/svn/activetwotools/trunk/input-output/lpttrigger@65 3b4714c8-b19d-487d-9711-26c957be2895
+
+bourdaud <bourdaud@3b4714c8-b19d-487d-9711-26c957be2895>	2009-06-19
+
+    Create 3 new projects
+    
+    
+    git-svn-id: https://svn.epfl.ch/svn/activetwotools/trunk/input-output/lpttrigger@4 3b4714c8-b19d-487d-9711-26c957be2895
+
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2009-06-10
+
+    Make the test for install-winio working
+
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2009-06-10
+
+    Update install for win32
+
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2009-05-12
+
+    Bug fixes:
+- clock_gettime.c: return correct timespec (millisec)           
+- add pthread_exit in the resseting thread (windows version might failed otherwise)           
+
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2009-04-14
+
+    Make lptwriter public
+
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2009-04-07
+
+    Correct closing extern "C" (__cplusplus instead of __cpluplus)
+
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2009-03-31
+
+    Add forgotten stuff related to winio
+
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2009-03-31
+
+    Add forgotten src/winio_dll.h
+
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2009-03-31
+
+    Add Winio stuff for windows version
+
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2009-03-25
+
+    Remove bdffile_interface.txt from the file list
+
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2009-03-06
+
+    Stop configure if pthread lib is not present
+
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2009-03-06
+
+    minimal README
+
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2009-03-06
+
+    Add doc (previously forgot doc folder)
+
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2009-03-06
+
+    Add doc, fix copyright and modify headers inclusion
+
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2009-03-06
+
+    Add config header if necessary
+
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2009-03-06
+
+    Make the lib C compatible if compiled in C++
+
+Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>	2009-03-06
+
+    Create a GNU package
+
+Nicolas Bourdaud <nicolas.bourdaud@idiap.ch>	2008-09-24
+
+    Fix the bug of the duration of the pulse width: specifying a duration of 100 ms does not produce a pulse of 10 ms anymore
+
+Nicolas Bourdaud <nicolas.bourdaud@idiap.ch>	2008-09-04
+
+    add command line options to the test program
+
+Nicolas Bourdaud <nicolas.bourdaud@idiap.ch>	2008-09-04
+
+    Add MSVC configuration files
+
+Nicolas Bourdaud <nicolas.bourdaud@idiap.ch>	2008-09-04
+
+    Change the test program to send command at will
+
+Nicolas Bourdaud <nicolas.bourdaud@idiap.ch>	2008-08-28
+
+    Add MSVC 2005 configuration files
+
+Nicolas Bourdaud <nicolas.bourdaud@idiap.ch>	2008-08-14
+
+    continued doc
+
+Nicolas Bourdaud <nicolas.bourdaud@idiap.ch>	2008-08-14
+
+    Start to provide documentation
+
+unknown <nbourdau@.(none)>	2008-08-13
+
+    Correct bugs revealed by win32 version
+
+Nicolas Bourdaud <nicolas.bourdaud@idiap.ch>	2008-08-13
+
+    remove previous win32 specific code (lptsynchro.*)
+
+Nicolas Bourdaud <nicolas.bourdaud@idiap.ch>	2008-08-13
+
+    Add real platform independent LPTtrigger (based on pthread)
+
+Nicolas Bourdaud <nicolas.bourdaud@idiap.ch>	2008-08-12
+
+    add common interface to write to parallel port
+
+Nicolas Bourdaud <nicolas.bourdaud@idiap.ch>	2008-06-12
+
+    add port address in the struct
+
+Nicolas Bourdaud <nicolas.bourdaud@idiap.ch>	2008-06-12
+
+    reformat code
+
+Nicolas Bourdaud <nicolas.bourdaud@idiap.ch>	2008-06-11
+
+    Corrected bugs....
+
+Nicolas Bourdaud <nbourdau@tapadufrix.(none)>	2008-05-16
+
+    remove windows endline
+
+Nicolas Bourdaud <nicolas.bourdaud@idiap.ch>	2008-04-16
+
+    Version for windows should work
