@@ -1,0 +1,5 @@
+/usr/include/*
+/usr/lib/liblpttrigger.la
+/usr/lib/liblpttrigger.so
+/usr/share/man/man3/*
+/usr/share/doc/lpttrigger/*
