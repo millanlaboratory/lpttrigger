@@ -17,7 +17,6 @@ endif
 
 liblpttrigger_la_LDFLAGS = $(AM_LDFLAGS) \
                            -version-info $(CURRENT):$(REVISION):$(AGE) \
-			   -release $(RELEASE)	\
 			   -export-symbols $(srcdir)/exports.sym \
 			   -no-undefined
 liblpttrigger_la_LIBADD = $(LTLIBOBJS)

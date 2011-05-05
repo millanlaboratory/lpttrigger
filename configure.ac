@@ -7,13 +7,12 @@
 # - If any interfaces have been removed since the last public release, then
 # set age to 0.
 
-m4_define([lib_release],0)
 m4_define([lib_current],0)
 m4_define([lib_revision],0)
 m4_define([lib_age],0)
 
 
-AC_INIT(lpttrigger,[lib_release.lib_current.lib_age.lib_revision])
+AC_INIT(lpttrigger,[lib_current.lib_age.lib_revision])
 AC_CONFIG_SRCDIR([src/lpttrigger.c])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
@@ -79,7 +78,6 @@ AC_CHECK_FUNCS([nanosleep gettimeofday ftime _ftime])
 AC_CHECK_FUNC_FNARG([GetSystemTimeAsFileTime], [0], [#include <windows.h>])
 AC_REPLACE_FUNCS([clock_gettime clock_nanosleep])
 
-AC_SUBST([RELEASE],[lib_release])
 AC_SUBST([CURRENT],[lib_current])
 AC_SUBST([REVISION],[lib_revision])
 AC_SUBST([AGE],[lib_age])

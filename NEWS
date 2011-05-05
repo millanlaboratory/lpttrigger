@@ -1,8 +1,7 @@
-Release 0.0.0.0:
+Release 0.0.0:
 ================
 
 	First official release of lpttrigger. It now follows the libtool
-	version scheme, thus making the old lpttrigger-0.3 deprecated. This
-	release adds also a minimal support for pulse width modulation signal
-	on parallel port. However in this state, it works only on linux
-	platform.
+	version scheme. This release adds a minimal support for pulse
+	width modulation signal on parallel port. However in this state,
+	this works only on linux platform.
