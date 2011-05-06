@@ -12,7 +12,7 @@ m4_define([lib_revision],0)
 m4_define([lib_age],0)
 
 
-AC_INIT(lpttrigger,[lib_current.lib_age.lib_revision])
+AC_INIT(lpttrigger,[lib_current.lib_revision],[nicolas.bourdaud@epfl.ch])
 AC_CONFIG_SRCDIR([src/lpttrigger.c])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
