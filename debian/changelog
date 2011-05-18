@@ -1,3 +1,9 @@
+lpttrigger (0.0-0) lucid; urgency=low
+
+  * Remove dependency_libs from .la files.
+
+ -- Nicolas Bourdaud <nicolas.bourdaud@epfl.ch>  Fri, 18 May 2011 16:57:26 +0200
+
 lpttrigger (0.0) lucid; urgency=low
 
   * Initial Release.
